@@ -1,13 +1,13 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum ColorEvent { toAmber, toLightBlue }
 
-class ColorBLoC extends Bloc<ColorEvent, Color> {
+class ColorBloc extends Bloc<ColorEvent, Color> {
   Color _color = Colors.amber;
+  ColorBloc() : super(Colors.lightBlue);
 
-  @override
-  Color get initialState => Colors.amber;
+  Color get color => _color;
 
   @override
   Stream<Color> mapEventToState(ColorEvent event) async* {

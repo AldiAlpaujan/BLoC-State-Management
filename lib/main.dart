@@ -12,10 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocProvider<ColorBLoC>(
-        builder: (context) => ColorBLoC(),
-        child: const MainPage(),
-      ),
+      home: BlocProvider(
+          create: (context) => ColorBloc(), child: const MainPage()),
     );
   }
 }
@@ -25,19 +23,24 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<ColorBloc>(context);
     return Scaffold(
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              bloc.add(ColorEvent.toAmber);
+            },
             backgroundColor: Colors.amber,
           ),
           const SizedBox(
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              bloc.add(ColorEvent.toLightBlue);
+            },
             backgroundColor: Colors.lightBlue,
           )
         ],
@@ -48,11 +51,13 @@ class MainPage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: AnimatedContainer(
-            duration: const Duration(milliseconds: 500),
-            width: 100,
-            height: 100,
-            color: Colors.amber),
+        child: BlocBuilder<ColorBloc, Color>(
+          builder: (context, currentColor) => AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              width: 100,
+              height: 100,
+              color: (currentColor == bloc.color) ? currentColor : bloc.color),
+        ),
       ),
     );
   }
