@@ -1,6 +1,8 @@
 # flutter_bloc_package
 
-A new Flutter project.
+Sebuah project baru flutter
+dimana  terdapat study kasus yang mengharuskan system merubah beberapa UI
+dan di project ini mengajarkan hal trsb dengan BLoC State Management
 
 ## Getting Started
 
